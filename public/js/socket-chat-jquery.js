@@ -9,7 +9,7 @@ var divChatbox = $('#divChatbox');
 
 var nombre = params.get('nombre');
 var sala = params.get('sala');
-
+var id_emisor;
 
 
 function renderizarMensajes(mensaje, yo) {
@@ -87,8 +87,15 @@ function renderizarUsuarios(personas) {
     for (let i = 0; i < personas.length; i++) {
         var c = i + 1;
         html += '<li>';
-        html += ' <a data-usuario="'+personas[i].nombre+'" data-id="' + personas[i].id + '"  href="javascript:void(0)"><img src="assets/images/users/' + c + '.jpg" alt="user-img" class="img-circle"> <span>' + personas[i].nombre + '<small class="text-success">online</small></span></a>'
+        html += ' <a data-usuario="'+personas[i].nombre+'" data-id="' +
+         personas[i].id + '"  href="javascript:void(0)"><img src="assets/images/users/' + c + '.jpg" alt="user-img" class="img-circle"> <span>' +
+          personas[i].nombre + '<small class="text-success">online</small></span></a>'
         html += '</li>'
+
+        if (personas[i].nombre === nombre) {
+            id_emisor = personas[i].id;
+            
+        }
 
     }
     divUusuarios.html(html);
@@ -99,9 +106,13 @@ function renderizarUsuarios(personas) {
     divUusuarios.on('click', 'a', function () {
         var id = $(this).data('id');
         var usuario = $(this).data('usuario');
+        var emisor = {};
+        var receptor = {id: id,nombre: usuario};
+        emisor.id =id_emisor ;
+        emisor.nombre = nombre;
         if (id) {
-            console.log(usuario);
-                window.open('privado.html?nombre='+usuario+'&id='+id+'');
+            console.log(receptor);
+                window.open('privado.html?nombre='+usuario+'&sala='+id+''+''+emisor.id+''+'&id='+emisor.id+'');
                 
             
         }

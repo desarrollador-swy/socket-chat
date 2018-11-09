@@ -90,6 +90,8 @@ function renderizarUsuarios(personas) {
         html += ' <a data-usuario="'+personas[i].nombre+'" data-id="' + personas[i].id + '"  href="javascript:void(0)"><img src="assets/images/users/' + c + '.jpg" alt="user-img" class="img-circle"> <span>' + personas[i].nombre + '<small class="text-success">online</small></span></a>'
         html += '</li>'
 
+
+
     }
     divUusuarios.html(html);
 
@@ -100,14 +102,14 @@ function renderizarUsuarios(personas) {
         var id = $(this).data('id');
         var usuario = $(this).data('usuario');
         if (id) {
-            console.log(usuario);
-                window.open('privado.html?nombre='+usuario+'&id='+id+'');
+            console.log(id);
                 
             
         }
 
     });
 
+    
     formEnviar.on('submit', function (e) {
         e.preventDefault();
         console.log(txtMensaje.val());
@@ -117,8 +119,8 @@ function renderizarUsuarios(personas) {
 
         //Enviar información
         socket.emit('mensajePrivado', {
-            nombre: nombre,
-            mensaje: txtMensaje.val()
+            mensaje: txtMensaje.val(),
+            para: params.get('id')
         }, function (resp) {
             txtMensaje.val('').focus();
             renderizarMensajes(resp,true);

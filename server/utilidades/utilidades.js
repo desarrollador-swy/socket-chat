@@ -8,6 +8,17 @@ const crearMensaje = ( nombre, mensaje) =>{
 
 }
 
+const mensajePrivado = ( nombre, mensaje) =>{
+
+    return{
+        nombre,
+        mensaje,
+        fecha: new Date().getTime()
+    }
+
+}
+
 module.exports = {
-    crearMensaje
+    crearMensaje,
+    mensajePrivado
 }
